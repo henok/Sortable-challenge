@@ -72,11 +72,13 @@ for line in listings_file:
 # file handler for products file
 products_file = open('products.txt', 'r')
 all_results_dict = {}
+original_product_name_dict = {}
 
 for line in products_file:
     jsonResponse = json.loads(line)
     product_name = clean_string(jsonResponse['product_name'])
     product_manufacturer = clean_string(jsonResponse['manufacturer'])
+    original_product_name_dict[product_name] = jsonResponse['product_name']
     
     product_name_keywords = tokenize_keywords(product_name)
     product_manufacturer_keywords = tokenize_keywords(product_manufacturer)
@@ -109,6 +111,7 @@ for line in products_file:
         matching_listing_product = None
             
         for listing_product_dict in manufacturer_dict[manufacturer_key] :
+            found_exact_match = True
             for product_name_keyword in product_name_keywords :
                 if product_name_keyword not in listing_product_dict['keywords']:
                     found_exact_match = False
@@ -125,9 +128,10 @@ for line in products_file:
                 matching_listings.append(matching_listing_product['object'])
                 
                 all_results_dict[product_name] = matching_listings
-                
-results_file = open('results.txt', 'w')
-results_file.write( json.dumps(all_results_dict) )
+
+results_file = open('results.txt', 'a')
+for result_product_name, result_listing in all_results_dict.iteritems() :
+    results_file.write( '{"product_name":'+original_product_name_dict[result_product_name]+', "listings":'+str(result_listing)+'}\n' )
 
             
     
