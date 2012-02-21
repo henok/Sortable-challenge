@@ -741,4 +741,4 @@
 {"product_name":"Olympus-SZ-20","manufacturer":"Olympus","model":"SZ-20","announced-date":"2011-03-01T19:00:00.000-05:00"}
 {"product_name":"Kodak_DC210_plus","manufacturer":"Kodak","model":"DC210 plus","announced-date":"1998-11-11T19:00:00.000-05:00"}
 {"product_name":"Casio_XV-3","manufacturer":"Casio","model":"XV-3","announced-date":"2000-02-23T19:00:00.000-05:00"}
-{"product_name":"XXXCasio_XV-3","manufacturer":"Europe GmbH henok","model":"Minolta","announced-date":"2000-02-23T19:00:00.000-05:00"}
+{"product_name":"Casio_XV-3","manufacturer":"Europe GmbH","model":"Minolta","announced-date":"2000-02-23T19:00:00.000-05:00"}
