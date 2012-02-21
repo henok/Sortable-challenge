@@ -129,9 +129,12 @@ for line in products_file:
                 
                 all_results_dict[product_name] = matching_listings
 
-results_file = open('results.txt', 'a')
+results_file = open('results.txt', 'w')
+results_file_data = ''
 for result_product_name, result_listing in all_results_dict.iteritems() :
-    results_file.write( '{"product_name":'+original_product_name_dict[result_product_name]+', "listings":'+str(result_listing)+'}\n' )
+    results_file_data = results_file_data + '{"product_name":'+original_product_name_dict[result_product_name]+', "listings":'+str(result_listing)+'}\n'
+    
+results_file.write(results_file_data)
 
             
     
