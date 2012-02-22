@@ -20,33 +20,6 @@ def tokenize_keywords(string_value):
     new_string_value = clean_string(string_value)
     new_string_values = new_string_value.split()
     return new_string_values
-    
-def _decode_list(data):
-    rv = []
-    for item in data:
-        if isinstance(item, unicode):
-            item = item.encode('utf-8')
-        elif isinstance(item, list):
-            item = _decode_list(item)
-        elif isinstance(item, dict):
-            item = _decode_dict(item)
-        rv.append(item)
-    return rv
-
-def _decode_dict(data):
-    rv = {}
-    for key, value in data.iteritems():
-        if isinstance(key, unicode):
-           key = key.encode('utf-8')
-        if isinstance(value, unicode):
-           value = value.encode('utf-8')
-        elif isinstance(value, list):
-           value = _decode_list(value)
-        elif isinstance(value, dict):
-           value = _decode_dict(value)
-        rv[key] = value
-    return rv
-    
 
 #### main program code
 
@@ -60,7 +33,7 @@ manufacturer_dict = {}
 listings_file = open('listings.txt', 'r')
 
 for line in listings_file:
-    jsonResponse = json.loads(line, object_hook=_decode_dict)
+    jsonResponse = json.loads(line)
     
     manufacturer_count = 1
     
@@ -158,7 +131,7 @@ for line in products_file:
 results_file_data = ''
 results_file = open('results.txt', 'w')
 for result_product_name, result_listing in all_results_dict.iteritems() :
-    results_file_data = results_file_data + '{"product_name":"'+original_product_name_dict[result_product_name] + '", "listings":'+json.dumps(str(result_listing)) + '}\n'
+    results_file_data = results_file_data + '{"product_name":"'+original_product_name_dict[result_product_name] + '", "listings":'+json.dumps(result_listing) + '}\n'
 
 results_file.write(results_file_data)
 
